@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Horario 8A</title>
+<style>
+body{
+    font-family:'Arial',sans-serif;
+    margin:0;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    background:white;
+}
+
+h1{
+    background:#4a90e2;
+    color:white;
+    padding:15px;
+    border-radius:0 0 20px 20px;
+    text-align:center;
+    width:100%;
+    font-size:1.7em;
+    box-shadow:0 4px 6px rgba(0,0,0,0.2);
+}
+
+select,input,button{
+    padding:8px;
+    font-size:14px;
+    margin:5px 0;
+    border-radius:6px;
+    border:1px solid #ccc;
+}
+
+table{
+    margin:15px auto;
+    border-collapse:collapse;
+    width:98%;
+    max-width:1200px;
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 6px 15px rgba(0,0,0,0.1);
+    background:white;
+}
+
+th,td{
+    border:1px solid #ddd;
+    padding:10px;
+    text-align:center;
+    font-size:14px;
+    min-width:80px;
+    transition:0.3s;
+}
+
+th{background:#e0e7f1;}
+
+td.resaltado{
+    box-shadow: inset 0 0 0 3px #000, 0 0 15px 5px rgba(255,255,0,0.6);
+    border-radius:5px;
+}
+
+td[data-materia="DIRECCION DE CURSO"]{background:#ff9999;}
+td[data-materia="PROGRAMACION"]{background:#99ccff;}
+td[data-materia="INGLES"]{background:#99ff99;}
+td[data-materia="INTERIORIDAD"]{background:#ffcc99;}
+td[data-materia="ARTES PLASTICAS"]{background:#cc99ff;}
+td[data-materia="DANZAS"]{background:#ff99ff;}
+td[data-materia="MATEMATICAS"]{background:#ffff99;}
+td[data-materia="PROYECTO INTEGRADOR"]{background:#99ffff;}
+td[data-materia="CIENCIAS SOCIALES"]{background:#ffccff;}
+td[data-materia="LENGUA CASTELLANA"]{background:#99ccff;}
+td[data-materia="CIENCIAS NATURALES"]{background:#ccff99;}
+td[data-materia="EDUCACION FISICA"]{background:#ffcc99;}
+td[data-materia="ALMUERZO"]{background:#f0f0f0;}
+td[data-materia="SOCIOEMOCIONAL"]{background:#ccffcc;}
+td[data-materia="MUSICA"]{background:#ffcccc;}
+td[data-materia="TALENTOS"]{background:#ccccff;}
+td[data-materia="PROCESOS FISICO QUIMICOS"]{background:#ffb380;}
+
+.tareas-container{
+    display:flex;
+    flex-wrap:wrap;
+    width:98%;
+    max-width:1200px;
+    margin-bottom:30px;
+}
+
+.tareas-form, .tareas-list{
+    background:white;
+    padding:15px;
+    border-radius:15px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.1);
+    margin:5px;
+}
+
+.tareas-form{flex:1 1 350px;}
+.tareas-list{flex:2 1 600px; max-height:400px; overflow-y:auto;}
+
+#tareas{list-style:none;padding:0;margin:0;}
+#tareas li{padding:10px;border-bottom:1px solid #eee;display:flex;justify-content:space-between;align-items:center;border-radius:6px;margin-bottom:5px;}
+.completada{ text-decoration:line-through;color:gray; }
+
+form input, form select, form button{margin-top:5px;width:100%;}
+form button{ background:#4a90e2;color:white;border:none;cursor:pointer;transition:0.3s;}
+form button:hover{background:#357ABD;}
+
+@media(max-width:900px){.tareas-container{flex-direction:column;} table{width:100%;}}
+</style>
+</head>
+<body>
+
+<h1>Horario 8A</h1>
+
+<h3>Selecciona materia</h3>
+<select id="materia" onchange="filtrar()">
+<option value="TODAS">TODAS</option>
+<option>DIRECCION DE CURSO</option>
+<option>PROGRAMACION</option>
+<option>INGLES</option>
+<option>INTERIORIDAD</option>
+<option>ARTES PLASTICAS</option>
+<option>DANZAS</option>
+<option>MATEMATICAS</option>
+<option>PROYECTO INTEGRADOR</option>
+<option>CIENCIAS SOCIALES</option>
+<option>LENGUA CASTELLANA</option>
+<option>CIENCIAS NATURALES</option>
+<option>EDUCACION FISICA</option>
+<option>ALMUERZO</option>
+<option>SOCIOEMOCIONAL</option>
+<option>MUSICA</option>
+<option>TALENTOS</option>
+<option>PROCESOS FISICO QUIMICOS</option>
+</select>
+
+<table id="horario">
+<tr><th>Hora</th><th>Lunes</th><th>Martes</th><th>Miércoles</th><th>Jueves</th><th>Viernes</th></tr>
+<tr><td>7:00-7:30</td>
+<td data-materia="DIRECCION DE CURSO">DIRECCION DE CURSO</td>
+<td data-materia="DIRECCION DE CURSO">DIRECCION DE CURSO</td>
+<td data-materia="DIRECCION DE CURSO">DIRECCION DE CURSO</td>
+<td data-materia="DIRECCION DE CURSO">DIRECCION DE CURSO</td>
+<td data-materia="PROCESOS FISICO QUIMICOS">PROCESOS FISICO QUIMICOS</td></tr>
+<tr><td>7:30-8:15</td>
+<td data-materia="PROGRAMACION">PROGRAMACION</td>
+<td data-materia="INGLES">INGLES</td>
+<td data-materia="INTERIORIDAD">INTERIORIDAD</td>
+<td data-materia="ARTES PLASTICAS">ARTES PLASTICAS</td>
+<td data-materia="INGLES">INGLES</td></tr>
+<tr><td>8:15-9:00</td>
+<td data-materia="PROGRAMACION">PROGRAMACION</td>
+<td data-materia="DANZAS">DANZAS</td>
+<td data-materia="MATEMATICAS">MATEMATICAS</td>
+<td data-materia="ARTES PLASTICAS">ARTES PLASTICAS</td>
+<td data-materia="INGLES">INGLES</td></tr>
+<tr><td>9:00-9:45</td>
+<td data-materia="PROYECTO INTEGRADOR">PROYECTO INTEGRADOR</td>
+<td data-materia="DANZAS">DANZAS</td>
+<td data-materia="MATEMATICAS">MATEMATICAS</td>
+<td data-materia="CIENCIAS SOCIALES">CIENCIAS SOCIALES</td>
+<td data-materia="LENGUA CASTELLANA">LENGUA CASTELLANA</td></tr>
+<tr><td>9:45-10:25</td>
+<td data-materia="ALMUERZO">ALMUERZO</td>
+<td data-materia="ALMUERZO">ALMUERZO</td>
+<td data-materia="ALMUERZO">ALMUERZO</td>
+<td data-materia="ALMUERZO">ALMUERZO</td>
+<td data-materia="ALMUERZO">ALMUERZO</td></tr>
+<tr><td>10:25-11:10</td>
+<td data-materia="INTERIORIDAD">INTERIORIDAD</td>
+<td data-materia="LENGUA CASTELLANA">LENGUA CASTELLANA</td>
+<td data-materia="CIENCIAS NATURALES">CIENCIAS NATURALES</td>
+<td data-materia="CIENCIAS NATURALES">CIENCIAS NATURALES</td>
+<td data-materia="INTERIORIDAD">INTERIORIDAD</td></tr>
+<tr><td>11:10-11:55</td>
+<td data-materia="MATEMATICAS">MATEMATICAS</td>
+<td data-materia="CIENCIAS NATURALES">CIENCIAS NATURALES</td>
+<td data-materia="EDUCACION FISICA">EDUCACION FISICA</td>
+<td data-materia="INGLES">INGLES</td>
+<td data-materia="CIENCIAS SOCIALES">CIENCIAS SOCIALES</td></tr>
+<tr><td>11:55-12:40</td>
+<td data-materia="MATEMATICAS">MATEMATICAS</td>
+<td data-materia="CIENCIAS NATURALES">CIENCIAS NATURALES</td>
+<td data-materia="EDUCACION FISICA">EDUCACION FISICA</td>
+<td data-materia="MATEMATICAS">MATEMATICAS</td>
+<td data-materia="CIENCIAS SOCIALES">CIENCIAS SOCIALES</td></tr>
+<tr><td>12:40-13:30</td>
+<td data-materia="ALMUERZO">ALMUERZO</td>
+<td data-materia="ALMUERZO">ALMUERZO</td>
+<td data-materia="ALMUERZO">ALMUERZO</td>
+<td data-materia="ALMUERZO">ALMUERZO</td>
+<td data-materia="ALMUERZO">ALMUERZO</td></tr>
+<tr><td>13:30-14:15</td>
+<td data-materia="SOCIOEMOCIONAL">SOCIOEMOCIONAL</td>
+<td data-materia="MUSICA">MUSICA</td>
+<td data-materia="CIENCIAS SOCIALES">CIENCIAS SOCIALES</td>
+<td data-materia="LENGUA CASTELLANA">LENGUA CASTELLANA</td>
+<td data-materia="TALENTOS">TALENTOS</td></tr>
+<tr><td>14:15-15:00</td>
+<td data-materia="INGLES">INGLES</td>
+<td data-materia="MUSICA">MUSICA</td>
+<td data-materia="INGLES">INGLES</td>
+<td data-materia="LENGUA CASTELLANA">LENGUA CASTELLANA</td>
+<td data-materia="TALENTOS">TALENTOS</td></tr>
+</table>
+
+<div class="tareas-container">
+  <div class="tareas-form">
+    <h3>Agregar Tarea</h3>
+    <form onsubmit="agregarTarea(event)">
+      <select id="materiaTarea" required>
+        <option value="">Selecciona materia</option>
+        <option>DIRECCION DE CURSO</option>
+        <option>PROGRAMACION</option>
+        <option>INGLES</option>
+        <option>INTERIORIDAD</option>
+        <option>ARTES PLASTICAS</option>
+        <option>DANZAS</option>
+        <option>MATEMATICAS</option>
+        <option>PROYECTO INTEGRADOR</option>
+        <option>CIENCIAS SOCIALES</option>
+        <option>LENGUA CASTELLANA</option>
+        <option>CIENCIAS NATURALES</option>
+        <option>EDUCACION FISICA</option>
+        <option>ALMUERZO</option>
+        <option>SOCIOEMOCIONAL</option>
+        <option>MUSICA</option>
+        <option>TALENTOS</option>
+        <option>PROCESOS FISICO QUIMICOS</option>
+      </select>
+      <input type="text" id="textoTarea" placeholder="Escribe la tarea" required>
+      <input type="date" id="fechaTarea" required>
+      <button type="submit">Agregar tarea</button>
+    </form>
+  </div>
+
+  <div class="tareas-list">
+    <h3>Lista de Tareas</h3>
+    <ul id="tareas"></ul>
+  </div>
+</div>
+
+<script>
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwZDzbgcHSX0WFK4UO0QzmKzt1k5An0jBIKZ7SDV8OO0chkPfcQAj2CnFjQS3aUOLvvaA/exec"; // Pon aquí tu URL del Web App
+
+let tareas = [];
+
+// Cargar tareas desde Google Sheets
+async function cargarTareas(){
+    const filtro = document.getElementById("materia").value;
+    const resp = await fetch(WEB_APP_URL);
+    tareas = await resp.json();
+    const lista = document.getElementById("tareas");
+    lista.innerHTML="";
+    tareas.forEach((t,i)=>{
+        if(filtro=="TODAS" || t.materia==filtro){
+            const li = document.createElement("li");
+            const f = t.fecha ? new Date(t.fecha).toLocaleDateString("es-ES") : "";
+            const span = document.createElement("span");
+            span.innerText = `${t.materia} - ${t.texto} (${f})`;
+            if(t.estado=="completada") span.classList.add("completada");
+            const check = document.createElement("input");
+            check.type="checkbox";
+            check.checked = t.estado=="completada";
+            check.onchange = async ()=>{
+                await fetch(WEB_APP_URL,{
+                    method:"POST",
+                    body: JSON.stringify({accion:"actualizar", index:i, estado:check.checked?"completada":"pendiente"})
+                });
+                cargarTareas();
+            };
+            li.appendChild(span);
+            li.appendChild(check);
+            lista.appendChild(li);
+        }
+    });
+}
+
+function filtrar(){
+    document.querySelectorAll("#horario td").forEach(c=>{
+        c.classList.remove("resaltado");
+        const m = document.getElementById("materia").value;
+        if(m!="TODAS" && c.dataset.materia==m){c.classList.add("resaltado");}
+    });
+    cargarTareas();
+}
+
+async function agregarTarea(e){
+    e.preventDefault();
+    const materia = document.getElementById("materiaTarea").value;
+    const texto = document.getElementById("textoTarea").value;
+    const fecha = document.getElementById("fechaTarea").value;
+    await fetch(WEB_APP_URL,{
+        method:"POST",
+        body: JSON.stringify({accion:"agregar", tarea:{materia,texto,fecha,estado:"pendiente"}})
+    });
+    e.target.reset();
+    cargarTareas();
+}
+
+// Carga inicial
+cargarTareas();
+</script>
+
+</body>
+</html>
