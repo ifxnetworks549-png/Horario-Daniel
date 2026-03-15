@@ -237,6 +237,7 @@ form button:hover{background:#357ABD;}
 
   <div class="tareas-list">
     <h3>Lista de Tareas</h3>
+    <p id="contadorTareas"><b>Tareas: 0 | Pendientes: 0 |     Completadas: 0</b></p>
     <ul id="tareas"></ul>
   </div>
 </div>
@@ -253,7 +254,12 @@ async function cargarTareas(){
     tareas = await resp.json();
     const lista = document.getElementById("tareas");
     lista.innerHTML="";
+    let total = 0;
+    let pendientes = 0;
+    let completadas = 0;
     tareas.forEach((t,i)=>{
+    total++;
+    if(t.estado=="completada"){completadas++;}else{pendientes++;}
         if(filtro=="TODAS" || t.materia==filtro){
             const li = document.createElement("li");
             const f = t.fecha ? new Date(t.fecha).toLocaleDateString("es-ES") : "";
@@ -275,6 +281,9 @@ async function cargarTareas(){
             lista.appendChild(li);
         }
     });
+
+document.getElementById("contadorTareas").innerHTML =
+"<b>Tareas: "+total+" | Pendientes: "+pendientes+" | Completadas: "+completadas+"</b>";
 }
 
 function filtrar(){
